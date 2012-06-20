@@ -16,14 +16,15 @@ talk about activating and de-activating accounts).
 
 You need to create a migration, manually (there is no magic here):
 
-    def up
-      add_column :agents, :deactivated_at, :datetime
-      add_index :agents, :deactivated_at
-    end
-    
-    def down
-      remove_index :agents, :deactivated_at
-      remove_column :agents, :deactivated_at
+    class DeviseDeactivatableForUsers < ActiveRecord::Migration
+      def up
+        add_column :users, :deactivated_at, :datetime
+        add_index :users, :deactivated_at
+      end
+      def down
+        remove_index :users, :deactivated_at
+        remove_column :users, :deactivated_at
+      end
     end
 
 == Usage
